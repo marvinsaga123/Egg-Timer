@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
     var timer = Timer()
+    var playEnabled = false
     @IBOutlet weak var timerSecondsRemaing: UILabel!
     
     override func viewDidLoad() {
@@ -24,10 +25,14 @@ class ViewController: UIViewController {
     }
     
     @IBAction func resumeTimer(_ sender: Any) {
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.decreaseByOneSecond), userInfo: nil, repeats: true)
+        if (!playEnabled) {
+            playEnabled = true
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.decreaseByOneSecond), userInfo: nil, repeats: true)
+        }
     }
     
     @IBAction func pauseTimer(_ sender: Any) {
+        playEnabled = false
         timer.invalidate()
     }
     
